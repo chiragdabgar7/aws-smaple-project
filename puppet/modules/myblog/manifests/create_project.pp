@@ -8,6 +8,15 @@ class myblog::create_project {
         notify  => Exec["init-mezzanine-db"]
     }
 
+     # Create the local_settings.py file
+    file { "$myblog::app_path/myblog/local_settings.py":
+        ensure => present,
+        content => template("myblog/local_settings.py.erb"),
+        owner => "mezzanine",
+        group => "mezzanine",
+        require => Exec["init-mezzanine-project"],
+        notify  => Exec["init-mezzanine-db"]
+
     # Create the development SQLite database
     exec { "init-mezzanine-db":
         command => "/usr/bin/python manage.py createdb --noinput",
