@@ -21,6 +21,30 @@
     }
   },
   "Resources" : {
+    
+     "CacheCluster": {
+      "Type" : "AWS::ElastiCache::CacheCluster",
+      "Properties" : {
+        "CacheNodeType" : "cache.t2.micro",
+        "CacheSecurityGroupNames" : [ "CacheSecurityGroup" ],
+        "Engine" : "memcached",
+        "NumCacheNodes" : "1"
+     }
+  },
+  "CacheSecurityGroup": {
+    "Type": "AWS::ElastiCache::SecurityGroup",
+    "Properties": {
+      "Description"  : "Allow access from Web instances"
+    }
+  },
+  "CacheSecurityGroupIngress": {
+    "Type": "AWS::ElastiCache::SecurityGroupIngress",
+    "Properties": {
+      "CacheSecurityGroupName"  : { "Ref" : "CacheSecurityGroup" },
+      "EC2SecurityGroupName"    : { "Ref" : "WebSecurityGroup" }
+    }
+  },
+
     "BlogDB" : { 
       "Type" : "AWS::RDS::DBInstance",
       "Properties" : {
@@ -57,11 +81,14 @@
          "UserData" : { 
            "Fn::Base64" : {
              "Fn::Join" : [ "", [
-               "{\"db_endpoint\": \"", 
-                { "Fn::GetAtt": [ "BlogDB", "Endpoint.Address" ] }, "\",",
-               " \"db_user\": \"", { "Ref": "DBUser" }, "\",",
-               " \"db_password\": \"", { "Ref": "DBPassword" }, "\" }"
-            ] ]
+      "{\"db_endpoint\": \"", { "Fn::GetAtt": [ "BlogDB", "Endpoint.Address" ] }, "\",",
+      " \"db_user\": \"", { "Ref": "DBUser" }, "\",",
+      " \"db_password\": \"", { "Ref": "DBPassword" }, "\",",
+
+      " \"cache_endpoint\": \"", 
+      { "Fn::GetAtt": [ "CacheCluster", "ConfigurationEndpoint.Address" ] }, "\"}"
+ 
+    ] ]
           }
         }
       }
