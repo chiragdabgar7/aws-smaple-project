@@ -50,14 +50,14 @@ ImageId = 'ami-07efac79022b86107'
 KeyName = 'aws_keypair'
 InstanceType = 't2.micro'
 #IamInstanceProfile =
-instances = ec2.create_instances(
-    ImageId =ImageId,
-    MinCount = 1,
-    MaxCount = 1,
-    KeyName = KeyName,
-    InstanceType = InstanceType,
-    IamInstanceProfile = {
-        'Name' : 'Test-ec2-pro',
-
-    }
-)
+#instances = ec2.create_instances(
+#    ImageId =ImageId,
+#    MinCount = 1,
+#    MaxCount = 1,
+#    KeyName = KeyName,
+#    InstanceType = InstanceType,
+#    IamInstanceProfile = {
+#        'Name' : 'Test-ec2-pro',
+#
+#    }
+#)
