@@ -33,4 +33,4 @@ for i in instances:
     CommandId = command_id,
     InstanceId = i.id,
     )
-    print(output['StatusDetails'], output['StandardOutputContent'])
+    print(output['StatusDetails'], output['StandardOutputContent'], i.id)
