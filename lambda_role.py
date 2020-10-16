@@ -42,6 +42,16 @@ response2 = iam.attach_role_policy(
     PolicyArn = 'arn:aws:iam::aws:policy/AWSLambdaFullAccess'
 )
 
+response3 = iam.attach_role_policy(
+    RoleName = role_name,
+    PolicyArn = 'arn:aws:iam::aws:policy/AmazonEC2FullAccess'
+)
+
+response4 = iam.attach_role_policy(
+    RoleName = role_name,
+    PolicyArn = 'arn:aws:iam::aws:policy/AWSLambdaExecute'
+)
+
 #creating instance profile
 instance_profile = iam.create_instance_profile(
     InstanceProfileName = 'Test-lambda-pro',

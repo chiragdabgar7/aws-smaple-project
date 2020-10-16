@@ -10,9 +10,10 @@ def lambda_build(LambdaFunctionName, iamRole):
         FunctionName=LambdaFunctionName,
         Runtime='python3.7',
         Role=iamRole,
-        Handler='{}.lambda_build'.format('lambda_func'),
+        Handler='ssm.lambda_handler',
         Description='Start a virtual machine',
-	    Code = {'S3Bucket':'test-bucket-chirag20201510', 'S3Key':'ssm.zip'}
+	    Code = {'S3Bucket':'test-bucket-20201610', 'S3Key':'ssm.zip'},
+        Timeout=10
         )
     return create_lambda_function
 
