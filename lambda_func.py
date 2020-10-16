@@ -17,4 +17,4 @@ def lambda_build(LambdaFunctionName, iamRole):
     return create_lambda_function
 
 
-print(lambda_build('My_func2','arn:aws:iam::368633732841:role/lambda-test-role'))
+print(lambda_build('My_func2','arn:aws:iam::<your-account-number>:role/lambda-test-role'))
